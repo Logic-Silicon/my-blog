@@ -1,6 +1,6 @@
 title: "Logic-Silicon's Tech Blog"
 baseURL: "https://logic-silicon.github.io/my-blog/"
-theme: "" # 注意：因为你直接在这个主题仓库里跑，这里保持留空，千万不要写 PaperMod！
+themesDir: "../"# 注意：因为你直接在这个主题仓库里跑，这里保持留空，千万不要写 PaperMod！
 
 # 基础语言设置
 languageCode: "en-us"
