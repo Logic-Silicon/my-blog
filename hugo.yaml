@@ -16,6 +16,7 @@ params:
   title: "Logic-Silicon"
   description: "Independent tech blog focused on Arch Linux, hardware modding, and systems."
   keywords: [Tech, Arch Linux, Hardware, Geek]
+  googleSiteVerification: "pzqoN0pY3fIrSbmH0Y9pfq_x2szIr6XyBnIsTRJN_iE"
   
   # 默认主题：跟随系统，右上角可手动切换深色/浅色
   defaultTheme: auto
