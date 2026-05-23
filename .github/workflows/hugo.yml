@@ -43,15 +43,18 @@ jobs:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
         run: |
+          # 核心修复：强制指定输出目录为 output_pages
           hugo \
             --gc \
             --minify \
+            --destination "output_pages" \
             --baseURL "${{ steps.pages.outputs.base_url }}/"          
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          # 核心修复：让打包工具去抓取刚才生成的那个文件夹，杜绝空白和 404
+          path: ./output_pages
 
   deploy:
     environment:
