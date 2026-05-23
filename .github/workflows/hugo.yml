@@ -1,67 +1,69 @@
-name: Deploy Hugo site to Pages
+title: "Logic-Silicon's Tech Blog"
+baseURL: "https://logic-silicon.github.io/my-blog/"
+theme: PaperMod
 
-on:
-  push:
-    branches: ["master"]
-  workflow_dispatch:
+# 核心语言设置
+languageCode: "en-us"
+defaultContentLanguage: "en"
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+# 完美支持 GitHub Pages 的打包优化
+minify:
+  disableXMLMin: false
+  minifyOutput: true
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+params:
+  env: production
+  title: "Logic-Silicon"
+  description: "Independent tech blog focused on Arch Linux, hardware modding, and systems."
+  keywords: [Tech, Arch Linux, Hardware, Geek]
+  
+  # 默认主题：跟随系统，右上角可手动切换深色/浅色
+  defaultTheme: auto
+  
+  # 基础功能开关
+  disableThemeToggle: false
+  showReadingTime: true
+  showShareButtons: true
+  showPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowSearchResults: true
 
-defaults:
-  run:
-    shell: bash
+  # 个人主页模式（解决空白的核心配置）
+  profileMode:
+    enabled: true
+    title: "Hi there 👋, I'm Logic-Silicon"
+    subtitle: "Welcome to my independent space. Obsessed with Arch Linux, hardware optimization, and building minimalist, efficient systems."
+    imageUrl: "" # 以后想放头像可以填图片链接
+    imageWidth: 120
+    imageHeight: 120
+    buttons:
+      - name: 📝 Posts
+        url: posts/
+      - name: 🔍 Search
+        url: search/
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install Hugo CLI
-        run: |
-          # 自动获取 Hugo 官方最新发布的稳定扩展版，彻底告别 404
-          LATEST_VERSION=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
-          echo "Latest Hugo version is v${LATEST_VERSION}"
-          wget -O ${{ runner.temp }}/hugo.deb "https://github.com/gohugoio/hugo/releases/download/v${LATEST_VERSION}/hugo_extended_${LATEST_VERSION}_linux-amd64.deb"
-          sudo dpkg -i ${{ runner.temp }}/hugo.deb          
+  # 社交媒体图标（会显示在主页正下方）
+  socialIcons:
+    - name: github
+      url: "https://github.com/Logic-Silicon"
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
+# 导航栏菜单配置
+menu:
+  main:
+    - name: 📝 Posts
+      url: posts/
+      weight: 10
+    - name: 🗂️ Archives
+      url: archives/
+      weight: 20
+    - name: 🔍 Search
+      url: search/
+      weight: 30
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
-
-      - name: Build with Hugo
-        env:
-          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
-          HUGO_ENVIRONMENT: production
-        run: |
-          hugo \
-            --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"          
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+# 特殊页面性能优化（搜索和归档）
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # 开启 JSON 才能使用内置的局部搜索功能
