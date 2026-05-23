@@ -1,0 +1,54 @@
+title: "Logic-Silicon's Tech Blog"
+baseURL: "https://logic-silicon.github.io/my-blog/"
+theme: "" # 注意：因为你直接在这个主题仓库里跑，这里保持留空，千万不要写 PaperMod！
+
+# 基础语言设置
+languageCode: "en-us"
+defaultContentLanguage: "en"
+
+# 完美支持 GitHub Pages 的打包优化
+minify:
+  disableXMLMin: false
+  minifyOutput: true
+
+params:
+  env: production
+  title: "Logic-Silicon"
+  description: "Independent tech blog focused on Arch Linux, hardware modding, and systems."
+  keywords: [Tech, Arch Linux, Hardware, Geek]
+  
+  # 默认主题：跟随系统，右上角可手动切换深色/浅色
+  defaultTheme: auto
+  
+  # 基础功能开关
+  disableThemeToggle: false
+  showReadingTime: true
+  showShareButtons: true
+  showPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowSearchResults: true
+
+  # 个人主页模式（解决空白的核心配置）
+  profileMode:
+    enabled: true
+    title: "Hi there 👋, I'm Logic-Silicon"
+    subtitle: "Welcome to my independent space. Obsessed with Arch Linux, hardware optimization, and building minimalist, efficient systems."
+    imageUrl: ""
+    imageWidth: 120
+    imageHeight: 120
+    buttons:
+      - name: 📝 Posts
+        url: posts/
+
+  # 社交媒体图标（会显示在主页正下方）
+  socialIcons:
+    - name: github
+      url: "https://github.com/Logic-Silicon"
+
+# 导航栏菜单配置
+menu:
+  main:
+    - name: 📝 Posts
+      url: posts/
+      weight: 10
