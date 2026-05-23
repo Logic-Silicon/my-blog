@@ -4,8 +4,10 @@ on:
   push:
     branches: ["master"] # 如果你的主分支叫 main，请把 master 改成 main
   workflow_dispatch:
-
-permissions:
+params:
+  googleSiteVerification: "pzqoN0pY3fIrSbmH0Y9pfq_x2szIr6XyBnIsTRJN_iE"
+  
+  permissions:
   contents: read
   pages: write
   id-token: write
